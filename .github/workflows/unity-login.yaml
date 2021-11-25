@@ -87,9 +87,9 @@ jobs:
           zip -r ../../${{ matrix.targetPlatform }}.zip .
           popd
 
-#      - name: Get current date
-#        id: date
-#        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
 
 #      - name: Tag snapshot
 #        uses: tvdias/github-tagger@v0.0.1
@@ -97,12 +97,12 @@ jobs:
 #          repo-token: ${{ secrets.NODE_AUTH_TOKEN }}
 #          tag: ${{ steps.date.outputs.date }}
 
-#      - name: Release
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: ${{ matrix.targetPlatform }}.zip
-#          token: ${{ secrets.NODE_AUTH_TOKEN }}
-#          tag: ${{ github.ref }}
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{ matrix.targetPlatform }}.zip
+          token: ${{ secrets.NODE_AUTH_TOKEN }}
+          tag: ${{ steps.date.outputs.date }}
 
       - name: Post to Discord
         uses: sarisia/actions-status-discord@v1
