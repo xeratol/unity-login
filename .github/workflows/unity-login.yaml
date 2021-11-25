@@ -1,0 +1,113 @@
+# https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-nodejs
+
+name: unity-login
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+    tags:
+      - '*'
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+
+# https://isaacbroyles.com/gamedev/2020/07/04/unity-github-actions.html
+# https://github.com/game-ci/unity-builder/issues/241
+jobs:
+  buildForAllSupportedPlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          # - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          # - StandaloneWindows # Build a Windows standalone.
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          #- StandaloneLinux64 # Build a Linux 64-bit standalone.
+          # - iOS # Build an iOS player.
+          # - Android # Build an Android .apk standalone app.
+          #- WebGL # WebGL.
+    steps:
+      - name: Request manual activation file
+        id: getManualLicenseFile
+        uses: game-ci/unity-request-activation-file@v2
+      # Upload artifact (Unity_v20XX.X.XXXX.alf)
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.getManualLicenseFile.outputs.filePath }}
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+
+      # Checkout https://github.com/game-ci/unity-actions/blob/main/.github/workflows/main.yml
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
+    
+      # Cache
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2
+        with:
+          unityVersion: 2020.3.15f2
+
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+          unityVersion:  2020.3.15f2
+          allowDirtyBuild: true
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
+
+      - name: Zip build
+        run: |
+          pushd build/${{ matrix.targetPlatform }}
+          zip -r ../../${{ matrix.targetPlatform }}.zip .
+          popd
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
+
+      - name: Tag snapshot
+        uses: tvdias/github-tagger@v0.0.1
+        with:
+          repo-token: ${{ secrets.NODE_AUTH_TOKEN }}
+          tag: ${{ steps.date.outputs.date }}
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{ matrix.targetPlatform }}.zip
+          token: ${{ secrets.NODE_AUTH_TOKEN }}
+          tag: ${{ github.ref }}
+
+      - name: Post to Discord
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          title: ${{ github.workflow }}
