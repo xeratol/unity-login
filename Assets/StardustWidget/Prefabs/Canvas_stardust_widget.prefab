@@ -394,13 +394,13 @@ MonoBehaviour:
   TermsAndServicesButton: {fileID: 5685132088248170920}
   PrivacyButton: {fileID: 5685132087026792191}
   googleSignupButton: {fileID: 5685132087353833349}
-  facebookSignupButton: {fileID: 5963052830389730451}
+  twitterSignupButton: {fileID: 5963052830389730451}
   appleSignupButton: {fileID: 5963052830613294435}
   discordSignupButton: {fileID: 5963052831473641111}
   snackBarRefs:
     image: {fileID: 5685132087625044865}
-    successfulSprite: {fileID: 21300000, guid: 29aeb2426b7004e42bc834ed372d21c0, type: 3}
-    errorSprite: {fileID: 21300000, guid: e9748dfbdf58a1846abf6f7c1d2663c1, type: 3}
+    successfulSprite: {fileID: 21300000, guid: 5c802cb1b1801f249aa4570783a4b4ad, type: 3}
+    errorSprite: {fileID: 21300000, guid: c88fd798e67a52345af2a5820d39570b, type: 3}
     mainMessage: {fileID: 5685132088223687096}
     secondaryMessage: {fileID: 5685132086899811831}
   urlWithCodeButton: {fileID: 5685132088554432077}
@@ -684,6 +684,66 @@ PrefabInstance:
       propertyPath: m_Name
       value: Widget_BG
       objectReference: {fileID: 0}
+    - target: {fileID: 7942838232881162752, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd56db7560dd69643a97b9b286b29a36, type: 3}
+    - target: {fileID: 8223010234389778662, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3c554762dbc9987419ca629e3765e048, type: 3}
+    - target: {fileID: 8223010234586095894, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 75cb1f2b489da644db0e12cd474c6212, type: 3}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 21.333344
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 18.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -99.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234586095895, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.19999981
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010234976284875, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_Name
+      value: continue-with-twitter-Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010235001085636, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_text
+      value: Continue with Twitter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010235001085636, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223010235652782866, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 27190b9a7be21264eb2c871c9c8321b5, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e34b4b9eb2a0ad04f99015b84783bdb0, type: 3}
 --- !u!1 &5685132088419394439 stripped
@@ -890,6 +950,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3329808171715687151, guid: c067ad64802c3484292e45f54933ad50, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5c802cb1b1801f249aa4570783a4b4ad, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c067ad64802c3484292e45f54933ad50, type: 3}
 --- !u!1 &5685132088811094890 stripped

@@ -154,7 +154,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.stardust.stardustlogin
-    Standalone: com.DefaultCompany.stardust
+    Standalone: com.stardust.stardustlogin
     iPhone: com.stardust.stardustlogin
   buildNumber:
     Standalone: 0
@@ -808,7 +808,9 @@ PlayerSettings:
   assemblyVersionValidation: 1
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
-    Standalone: 6
+    Android: 3
+    Standalone: 3
+    WSA: 3
     iPhone: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1

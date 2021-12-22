@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Social Buttons")]
     [SerializeField] Button googleSignupButton;
-    [SerializeField] Button facebookSignupButton;
+    [SerializeField] Button twitterSignupButton;
     [SerializeField] Button appleSignupButton;
     [SerializeField] Button discordSignupButton;
 
@@ -38,8 +38,9 @@ public class UIManager : MonoBehaviour
 
     [Header("Editor fields")]
     // WARNING: these fields and the below #defines are for development and testing the code exchange used in the social login.
-    [SerializeField] Button urlWithCodeButton;
-    [SerializeField] InputField urlWithCodeField;
+    [SerializeField] private Button urlWithCodeButton;
+    [SerializeField] private InputField urlWithCodeField;
+    [SerializeField] private Button RefreshTokenButton;
 
     private AuthenticationManager _authenticationManager;
     public GameObject snackBar;
@@ -86,7 +87,10 @@ public class UIManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         if (successfulRefresh)
+        {
             SuccessfullLogin();
+            RefreshToken();
+        }
         else
             ErrorLogin(AuthenticationManager._status);
 
@@ -148,9 +152,9 @@ public class UIManager : MonoBehaviour
         onLoginClicked("Google");
     }
 
-    private void onFacebookLoginClicked()
+    private void onTwitterLoginClicked()
     {
-        onLoginClicked("Facebook");
+        onLoginClicked("Twitter");
     }
 
     private void onAppleLoginClicked()
@@ -177,6 +181,11 @@ public class UIManager : MonoBehaviour
         }
         else
             _unauthInterface.SetActive(false);
+    }
+
+    private void onRefreshTokenClick()
+    {
+        RefreshToken();
     }
 
     // Pass in URL from link a player clicked on from our game forums
@@ -293,7 +302,7 @@ public class UIManager : MonoBehaviour
         RefreshToken();
 
         googleSignupButton.onClick.AddListener(onGoogleLoginClicked);
-        facebookSignupButton.onClick.AddListener(onFacebookLoginClicked);
+        twitterSignupButton.onClick.AddListener(onTwitterLoginClicked);
         appleSignupButton.onClick.AddListener(onAppleLoginClicked);
         discordSignupButton.onClick.AddListener(onDiscordLoginClicked);
 
@@ -302,6 +311,8 @@ public class UIManager : MonoBehaviour
 
         TermsAndServicesButton.onClick.AddListener(ShowTermsOfService);
         PrivacyButton.onClick.AddListener(ShowPrivacyPolicy);
+
+        RefreshTokenButton.onClick.AddListener(onRefreshTokenClick);
 
 #if UNITY_EDITOR
         urlWithCodeButton.onClick.AddListener(onCodeClick);

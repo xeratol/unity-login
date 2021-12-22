@@ -92,6 +92,9 @@ public class AuthenticationManager : MonoBehaviour
 
             // update session cache
             SaveDataManager.SaveJsonData(new UserSessionCache(authenticationResultType, _userid));
+
+            Debug.LogWarning("Id token: " + authenticationResultType.id_token);
+
             webRequest.Dispose();
             return true;
         }
@@ -146,6 +149,9 @@ public class AuthenticationManager : MonoBehaviour
 
                 // update session cache
                 SaveDataManager.SaveJsonData(new UserSessionCache(authenticationResultType, _userid));
+
+                Debug.LogWarning("New id token: " + authenticationResultType.id_token);
+                
                 webRequest.Dispose();
                 return true;
             }
